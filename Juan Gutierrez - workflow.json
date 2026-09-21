@@ -1,0 +1,100 @@
+{
+  "name": "Juan Gutierrez - workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=como vendedor bicicletas, necesito que respondas como si estuvieras asesorando a un posible cliente para la compra de una bicicleta, {{ $json.chatInput }}",
+        "options": {
+          "maxIterations": 10
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "78b225f5-ed47-4080-b642-7d433baf39cf",
+      "name": "AI Agent",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -16,
+        -128
+      ],
+      "id": "a7ae9ac6-2ce4-405d-8f53-5f9b7ae60759",
+      "name": "When chat message received",
+      "webhookId": "6ea87cae-b763-428b-85b2-674012e12d97"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        96,
+        208
+      ],
+      "id": "c8c1793b-18d1-4451-a0dd-1955018e8caf",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "Sj7g7Ol8TUME979l",
+          "name": "Groq account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "1696bcff-09a0-425e-a093-e02c466cf6cf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dc31f39ff648975346bb5f0f027d0d163aa6056d7ee296fdc5a868f76eb30063"
+  },
+  "nodeGroups": [],
+  "id": "BjXRbuIJ7rNnCNTs",
+  "tags": []
+}
