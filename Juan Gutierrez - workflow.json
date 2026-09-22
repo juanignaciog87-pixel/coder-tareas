@@ -4,7 +4,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=como vendedor bicicletas, necesito que respondas como si estuvieras asesorando a un posible cliente para la compra de una bicicleta, {{ $json.chatInput }}",
+        "text": "=# ROL\nSos el encargado de las ventas de una bicicletería. Respondé con tono formal y profesional.\n# ÁMBITO\nTu alcance se limita a entender la necesidad del cliente en relación al uso que le va a dar a la bicicleta (Trabajo, paseo, carreras, travesía).\n# OBJETIVO\nAtender las solicitudes entrantes, ejecutar las acciones necesarias mediante las herramientas disponibles y devolver una respuesta clara.\n# REGLAS\nMantené un lenguaje claro y mostrarte a disposición del cliente, haciendo sugerencias.\n# ESCALAMIENTO\nSi la consulta está fuera de tu ámbito o una herramienta falla, indicá: 'No dispongo de esa información en este momento, derivo tu caso con el equipo correspondiente., {{ $json.chatInput }}",
         "options": {
           "maxIterations": 10
         }
@@ -52,6 +52,34 @@
           "name": "Groq account"
         }
       }
+    },
+    {
+      "parameters": {
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "U0C3JAH1AU9",
+          "mode": "list",
+          "cachedResultName": "Juan Ignacio Gutierrez (@juanignaciog87)"
+        },
+        "text": "=mensaje de cliente:  {{ $('When chat message received').item.json.chatInput }}\nfecha: {{ $today }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.7,
+      "position": [
+        592,
+        0
+      ],
+      "id": "3e1a8bc3-596e-470f-a3ca-9fae2e73835a",
+      "name": "Send a message",
+      "webhookId": "0a0b3c92-345b-4813-ac12-610e68d2ac6f",
+      "credentials": {
+        "slackApi": {
+          "id": "OfTxCfFVg3DDH1JJ",
+          "name": "Slack account 2"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -80,7 +108,13 @@
     },
     "AI Agent": {
       "main": [
-        []
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -89,7 +123,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "1696bcff-09a0-425e-a093-e02c466cf6cf",
+  "versionId": "07130eb1-1faf-484e-bb8a-9c82189cf9f4",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "dc31f39ff648975346bb5f0f027d0d163aa6056d7ee296fdc5a868f76eb30063"
